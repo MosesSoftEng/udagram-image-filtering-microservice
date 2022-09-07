@@ -17,9 +17,20 @@ The project is split into two parts:
 A file named `set_env.sh` has been prepared as an optional tool to help you configure these variables on your local development environment.
  
 We do _not_ want your credentials to be stored in git. After pulling this `starter` project, run the following command to tell git to stop tracking the script in git but keep it stored locally. This way, you can use the script for your convenience and reduce risk of exposing your credentials.
+
 `git rm --cached set_env.sh`
 
 Afterwards, we can prevent the file from being included in your solution by adding the file to our `.gitignore` file.
+
+`echo *set_env.sh >> .gitignore`
+
+Add environemt variables to current terminal
+
+`source ./set_env.sh`
+
+Check environment variables
+
+`echo $POSTGRES_USERNAME`
 
 ### 1. Database
 Create a PostgreSQL database either locally or on AWS RDS. The database is used to store the application's metadata.
