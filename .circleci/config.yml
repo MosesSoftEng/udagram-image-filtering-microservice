@@ -33,7 +33,7 @@ jobs:
           docker tag udagram-frontend mosessofteng/udagram-frontend:v1
 
       - run:
-          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
           docker push mosessofteng/reverseproxy
           docker push mosessofteng/udagram-api-user
           docker push mosessofteng/udagram-api-feed
