@@ -21,7 +21,6 @@ jobs:
 
       - run: |
           docker --version
-          docker image prune --all
           docker-compose -f docker-compose-build.yaml build --parallel
           docker tag reverseproxy mosessofteng/reverseproxy:v1
           docker tag udagram-api-user mosessofteng/udagram-api-user:v1
