@@ -1,0 +1,35 @@
+# version key - used to issue warnings about breaking changes.
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: cimg/node:12.0.0
+        auth:
+          username: $DOCKER_USERNAME
+          password: $DOCKER_PASSWORD
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.14
+
+      # ... steps for building/testing app ...
+      - run: echo "no tests"
+
+      - run: |
+          echo $DOCKER_PASSWORD
+          echo $DOCKER_USERNAME
+
+      - run: |
+          docker --version
+          docker image prune --all
+          docker-compose -f docker-compose-build.yaml build --parallel
+          docker tag reverseproxy mosessofteng/reverseproxy:v1
+          docker tag udagram-api-user mosessofteng/udagram-api-user:v1
+          docker tag udagram-api-feed mosessofteng/udagram-api-feed:v1
+          docker tag udagram-frontend mosessofteng/udagram-frontend:v1
+      - run:
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          docker push mosessofteng/reverseproxy
+          docker push mosessofteng/udagram-api-user
+          docker push mosessofteng/udagram-api-feed
+          docker push mosessofteng/udagram-frontend
