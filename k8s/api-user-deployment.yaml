@@ -18,6 +18,13 @@ spec:
         - image: mosessofteng/udagram-api-user:v1
           name: api-user
           imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "1024Mi"
+              cpu: "500m"
           env:
             - name: URL
               valueFrom:
