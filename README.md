@@ -67,6 +67,8 @@ Launch the frontend app locally.
 * To download all the package dependencies, run the command from the directory `udagram-frontend/`:
     ```bash
     npm install .
+
+    npm i -f
     ```
 * Install Ionic Framework's Command Line tools for us to build and run the application:
     ```bash
@@ -98,6 +100,32 @@ Launch the frontend app locally.
 
 
 # Split user and feed to seperate services
-
  `cp -R udagram-api/. udagram-api-feed`
  `cp -R udagram-api/. udagram-api-user`
+
+
+# EKS
+_UdagramEKSClusterIAMRoleFullAccess
+AmazonEC2ContainerServiceFullAccess replaced by AmazonECS_FullAccess
+
+_UdagramEKSNodeGroupsIAMRole
+
+
+UdagramEKSCluster
+
+
+NodeGroup
+UdagramEKSClusterNodeGroup
+
+
+kubectl apply -f api-feed-deployment.yaml
+kubectl apply -f api-user-deployment.yaml
+kubectl apply -f aws-secret.yaml
+kubectl apply -f env-secret.yaml
+kubectl apply -f frontend-service.yaml
+kubectl apply -f reverseproxy-service.yaml
+kubectl apply -f api-feed-service.yaml
+kubectl apply -f api-user-service.yaml
+kubectl apply -f env-configmap.yaml
+kubectl apply -f frontend-deployment.yaml
+kubectl apply -f reverseproxy-deployment.yaml
